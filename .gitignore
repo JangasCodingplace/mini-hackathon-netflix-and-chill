@@ -1,0 +1,42 @@
+# cache
+__pycache__/*
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pywz
+pytest_cache/*
+.mypy_cache/*
+*.egg-info
+*.py[co]
+dist
+.DS_Store
+
+# logs
+logs/*
+*.log
+
+# env
+.env
+.env.local
+
+# build
+build/*
+
+# virtualenv
+venv/*
+env/*
+ENV/*
+VENV/*
+.venv/*
+.env/*
+
+# IDE
+.idea/*
+.vscode/*
+
+
+db/
+app/db.sqlite3
+
+certbot/

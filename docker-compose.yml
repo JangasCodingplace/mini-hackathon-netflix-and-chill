@@ -1,0 +1,37 @@
+version: "3"
+
+
+services:
+  dj-server:
+    build: .
+    container_name: "mini-hackathon-weather-dj-server"
+    env_file:
+      - ./app/.env
+    command:
+      - sh
+      - -c
+      - |
+        poetry run python manage.py migrate
+        poetry run gunicorn --bind 0.0.0.0:8000 configs.wsgi:application
+    volumes:
+      - ./app:/app
+
+  nginx:
+    image: nginx:1.21-alpine
+    container_name: "mini-hackathon-weather-nginx"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    depends_on:
+      - dj-server
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw

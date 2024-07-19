@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "epic-quotes"
+version = "0.0.1"
+description = ""
+authors = ["JangasCodingplace <janisgoesser92@gmail.com>"]
+readme = "README.md"
+
+[tool.black]
+line-length = 100
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Django = "^5.0.7"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.0"
+mypy = "^1.10.1"
+isort = "^5.13.2"
+black = "^24.4.2"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
