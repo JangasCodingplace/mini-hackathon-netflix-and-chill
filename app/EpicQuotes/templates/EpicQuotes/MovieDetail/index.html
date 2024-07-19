@@ -1,0 +1,28 @@
+{% include 'basic/main.html' %}
+{% block content %}
+
+  <div class="container container-sm">
+  <a class="btn btn-primary" href="/">Back</a>
+    <div class="card" style="max-width: 540px">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ movie.poster_url }}" class="img-fluid rounded-start" alt="poster">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }} {% if movie.year %}({{ movie.year }}){% endif %}</h5>
+            <p class="card-text">
+              <b>A famous Quote:</b><br/>
+              {{ quote.body }}
+            </p>
+            <p class="card-text">
+              <b>Some Background information for that quote:</b><br/>
+              {{ quote.background }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
