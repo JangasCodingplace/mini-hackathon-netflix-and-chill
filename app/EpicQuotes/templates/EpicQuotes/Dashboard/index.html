@@ -1,0 +1,29 @@
+{% include 'basic/main.html' %}
+{% block content %}
+
+  <div class="container container-sm">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          Add your Movie title
+        </h3>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group m-4">
+            <label for="movieTitle">Movie Title</label>
+            <input type="text" class="form-control" id="movieTitle" name="movie_title" placeholder="Enter Movie Title">
+            {% if form.movie_title.errors %}
+              <div id="movieTitleError" class="form-text">
+                <span class="text-danger">{{ form.movie_title.errors }}</span>
+              </div>
+            {% endif %}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

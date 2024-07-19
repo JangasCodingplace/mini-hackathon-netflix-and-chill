@@ -1,10 +1,12 @@
 version: "3"
 
+volumes:
+  staticfiles:
 
 services:
   dj-server:
     build: .
-    container_name: "mini-hackathon-weather-dj-server"
+    container_name: "mini-hackathon-omdb-dj-server"
     env_file:
       - ./app/.env
     command:
@@ -12,26 +14,29 @@ services:
       - -c
       - |
         poetry run python manage.py migrate
+        poetry run python manage.py collectstatic --noinput
         poetry run gunicorn --bind 0.0.0.0:8000 configs.wsgi:application
     volumes:
       - ./app:/app
+      - staticfiles:/app/staticfiles
 
   nginx:
     image: nginx:1.21-alpine
-    container_name: "mini-hackathon-weather-nginx"
+    container_name: "mini-hackathon-omdb-nginx"
     restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
+      - staticfiles:/static/django
       - ./frontend/build:/usr/share/nginx/html
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+#      - ./certbot/www:/var/www/certbot/:ro
+#      - ./certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - dj-server
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - ./certbot/www/:/var/www/certbot/:rw
+#      - ./certbot/conf/:/etc/letsencrypt/:rw

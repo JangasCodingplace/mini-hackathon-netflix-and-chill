@@ -1,0 +1,3 @@
+Hey! Please tell me a quote from following movie:
+{{ movie.title}} {% if movie.year %} from year {{ movie.year }}{% endif %}.
+{% if movie.actors %}Cast: {{ movie.actors }}{% endif %}.
