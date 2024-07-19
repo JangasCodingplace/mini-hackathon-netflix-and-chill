@@ -14,7 +14,7 @@ ignore_missing_imports = true
 [tool.poetry.dependencies]
 python = "^3.12"
 Django = "^5.0.7"
-requests = "^2.32.3"git ad
+requests = "^2.32.3"
 gunicorn = "^22.0.0"
 
 [tool.poetry.group.dev.dependencies]
